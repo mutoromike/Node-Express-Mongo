@@ -20,3 +20,18 @@ exports.product_create = function (req, res) {
         res.send('Product Created successfully')
     })
 };
+
+exports.product_detail = function (req, res) {
+    Product.findById(req.params.id, function (err, product) {
+        if (err) return next(err);
+        res.send(product);
+    })
+};
+
+exports.product_details = (req, res) => {
+    Product.find({}, (function(err, result) {
+        if (err) throw err;
+        console.log("The products are", result);
+        res.send(result);
+    }));
+};

@@ -32,6 +32,6 @@ exports.product_details = (req, res) => {
     Product.find({}, (function(err, result) {
         if (err) throw err;
         console.log("The products are", result);
-        res.send(result);
+        res.json(result);
     }));
 };

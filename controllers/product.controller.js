@@ -1,10 +1,6 @@
 const Product = require('../models/product.models');
 
 //Simple version, without validation or sanitation
-exports.test = function (req, res) {
-    res.send('Greetings from the Test controller!');
-};
-
 exports.product_create = function (req, res) {
     let product = new Product(
         {
@@ -14,21 +10,19 @@ exports.product_create = function (req, res) {
     );
 
     product.save(function (err) {
-        if (err) {
-            return next(err);
-        }
+        if (err) throw err;
         res.send('Product Created successfully')
     })
 };
 
 exports.product_detail = function (req, res) {
     Product.findById(req.params.id, function (err, product) {
-        if (err) return next(err);
+        if (err) throw err;
         res.send(product);
     })
 };
 
-exports.product_details = (req, res) => {
+exports.products = function (req, res) {
     Product.find({}, (function(err, result) {
         if (err) throw err;
         console.log("The products are", result);
